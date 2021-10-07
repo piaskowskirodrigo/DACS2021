@@ -1,5 +1,6 @@
 package br.univille.rodrigodacs2021.model;
 
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
-public class Produto{
+public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,11 +24,11 @@ public class Produto{
     private String descricao;
     private float preco;
     @Temporal(value = TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataRegistro;
 
-    @ManyToOne(cascade ={CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private Categoria categoria;
-
 
     public Categoria getCategoria() {
         return categoria;
@@ -57,7 +60,5 @@ public class Produto{
     public void setPreco(float preco) {
         this.preco = preco;
     }
-
-    
-
+        
 }

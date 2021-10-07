@@ -9,4 +9,5 @@ import br.univille.rodrigodacs2021.model.Produto;
 public interface ProdutoService {
     public List<Produto> getAllProdutos();
     public Produto save(Produto produto);
+    public void delete(Produto produto);
 }
