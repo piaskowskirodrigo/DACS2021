@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    
+<html xmins:th="http://www.thymeleaf.org"
+    xmins:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+   
     <head th:include="layout :: htmlhead"></head>
-    
+
     <body>
         <div class="container">
 			<nav th:replace="layout :: menu">(menu)</nav>
-            
-            <a th:href="@{/produto/novo}" class="btn btn-primary">  Novo  </a>
+
+            <h1></h1>
+            <a th:href="@{/produto/novo}" class="btn btn-success">Novo produto</a>
+            <a th:href="@{/import-produto}" class="btn btn-primary">Importador</a>
+            <h1></h1>
 
             <table class="table" id="produtos">
                 <thead>
@@ -17,7 +20,7 @@
                         <th>Preço</th>
                         <th>Data</th>
                         <th>Categoria</th>
-                        <th></th>
+                        <th></th> <!--Ação de editar-->
                     </tr>
                 </thead>
                 <tbody>
@@ -27,37 +30,41 @@
                         <td th:text="${umproduto.dataRegistro}"></td>
                         <td th:text="${umproduto.categoria}"></td>
                         <td>
-                            <a th:href="@{'/produto/alterar/'+${umproduto.id}}" class="btn btn-primary">Alterar</a>
-                            <button class="btn btn-danger js-delete" 
-                                    th:data-id="${umproduto.id}" >Excluir</button>                            
+                            <a th:href="@{'/produto/alterar/'+${umproduto.id}}" class="btn btn-secondary">Editar</a>
+                            <button class="btn btn-danger js-delete" th:data-id="${umproduto.id}">Excluir</button>
                         </td>
                     </tr>
                 </tbody>
-            </table>    
+            </table>
+            
+            <!-- <a onClick="window.location.reload();" class="btn btn-light">Atualizar</a> -->
 
         </div>
+
         <div th:include="layout :: footer" id="footer">(footer)</div>
 
         <script type="text/javascript">
-
             $(document).ready(function(){
+
                 $("#produtos").on("click",".js-delete", function(){
                     let button = $(this);
-                    bootbox.confirm("Você confirma a exclusão do registro?", function(result){
+
+                    bootbox.confirm("Confirmar exclusão", function(result){ //Result é booleano
                         if(result){
                             $.ajax({
-                                url : "/produto/delete/" + button.attr("data-id"),
+                                url : "/produto/delete/"+button.attr("data-id"),
                                 method : "GET",
                                 success : function(){
-                                    window.location.href = "/produto/";
+                                    window.location.href = "/produto";
                                 }
                             });
                         }
+
                     });
-                });
+                })
+
             });
         </script>
 
-
     </body>
-</html> 
+</html>
