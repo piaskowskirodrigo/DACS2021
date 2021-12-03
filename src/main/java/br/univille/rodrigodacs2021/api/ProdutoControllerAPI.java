@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.univille.rodrigodacs2021.model.Produto;
 import br.univille.rodrigodacs2021.service.ProdutoService;
-import io.swagger.models.Response;
+
 
 
 @RestController
